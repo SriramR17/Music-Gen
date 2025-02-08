@@ -14,12 +14,24 @@
 
     <form id="music-form" class="mt-4">
       <div class="mb-3">
+
+        
         <label for="mode" class="form-label">Choose Input Mode:</label>
         <select id="mode" class="form-select">
           <option value="text">Text Prompt</option>
           <option value="options">Predefined Options</option>
         </select>
       </div>
+
+      <label for="duration">Select Duration (seconds) :</label>
+        <select id="duration" name="duration" class="'form-select">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+        </select>
+        <br>
+        <br>
 
       <!-- Text Prompt Section -->
       <div id="text-prompt-section" class="mb-3">
@@ -28,32 +40,56 @@
       </div>
 
       <!-- Predefined Options Section -->
-      <div id="options-section" class="mb-3" style="display: none;">
-        <label for="genre" class="form-label">Select Genre:</label>
-        <select id="genre" class="form-select">
-          <option value="rap">Rap</option>
-          <option value="classical">Classical</option>
-          <option value="pop">Pop</option>
-          <option value="jazz">Jazz</option>
-        </select>
+      <!-- Predefined Options Section -->
+<div id="options-section" class="mb-3" style="display: none;">
+  <label for="genre" class="form-label">Select Genre:</label>
+  <select id="genre" class="form-select">
+    <option value="rap">Rap</option>
+    <option value="classical">Classical</option>
+    <option value="pop">Pop</option>
+    <option value="jazz">Jazz</option>
+    <option value="rock">Rock</option>
+    <option value="blues">Blues</option>
+    <option value="electronic">Electronic</option>
+    <option value="reggae">Reggae</option>
+    <option value="country">Country</option>
+    <option value="hip-hop">Hip-Hop</option>
+  </select>
+  <br>
+  <div class="mb-3" id="emotion-section" style="display: none;">
+  <label for="emotion" class="form-label">Select Emotion:</label>
+  <select id="emotion" class="form-select">
+    <!-- Options will be populated dynamically based on the genre -->
+  </select>
+</div>
+  <label for="instruments" class="form-label mt-3">Select Instruments:</label>
+  <select id="instruments" class="form-select">
+    <option value="piano">Piano</option>
+    <option value="drums">Drums</option>
+    <option value="guitar">Guitar</option>
+    <option value="violin">Violin</option>
+    <option value="bass">Bass</option>
+    <option value="saxophone">Saxophone</option>
+    <option value="trumpet">Trumpet</option>
+    <option value="flute">Flute</option>
+    <option value="synthesizer">Synthesizer</option>
+    <option value="harp">Harp</option>
+  </select>
+</div>
 
-        <label for="instruments" class="form-label mt-3">Select Instruments:</label>
-        <select id="instruments" class="form-select">
-          <option value="piano">Piano</option>
-          <option value="drums">Drums</option>
-          <option value="guitar">Guitar</option>
-          <option value="violin">Violin</option>
-        </select>
-      </div>
+
+
 
       <button type="submit" class="btn btn-primary w-100">Generate Music</button>
     </form>
 
-    <div class="mt-4">
+    <div class="audio-player mt-4">
       <h5>Generated Music:</h5>
       <audio id="audio-player" controls class="w-100"></audio>
     </div>
   </div>
+
+ 
 
   <div class="loading-overlay" id="loading-overlay">
     <div class="spinner-border text-primary" role="status">

@@ -15,19 +15,32 @@ def index():
 @app.route('/generate', methods=['POST'])
 def generate_music():
     data = request.json
+    duration = int(data.get('duration', 5))
     mode = data.get('mode')
     prompt = ''
 
     if mode == 'text':
-        prompt = data.get('text_prompt', 'Generate a default track.')
+        prompt = data.get('text_prompt', 'Generate a blissful track.')
     elif mode == 'options':
         genre = data.get('genre', 'default genre')
+        emotion = data.get('emotion','default emotion')
         instruments = data.get('instruments', 'default instruments')
-        prompt = f"Generate a {genre} track featuring {instruments}."
+        prompt = f"Generate a {genre} in {emotion} emotion in track featuring {instruments}."
+
+
+    token_mapping = {
+        5: 256,  # 5 seconds = 256 tokens
+        10: 512,  # 10 seconds = 512 tokens
+        15: 768,  # 15 seconds = 768 tokens
+        20: 1024  # 20 seconds = 1024 tokens
+    }
+    
+    # Select the correct number of tokens based on the duration
+    max_tokens = token_mapping.get(duration, 256)
 
     # Process the input and generate audio
     inputs = processor(text=[prompt], padding=True, return_tensors="pt")
-    audio_values = model.generate(**inputs, max_length=512)
+    audio_values = model.generate(**inputs, max_length=max_tokens)
     
     
     # Save audio to a file

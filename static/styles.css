@@ -1,5 +1,5 @@
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: 'Poppins', sans-serif;
   background: linear-gradient(to bottom, #141e30, #243b55);
   color: #fff;
   display: flex;
@@ -9,25 +9,62 @@ body {
   margin: 0;
 }
 
-.glossy-theme {
+.container {
+  margin-top: 50px;
+  padding: 30px;
   background: rgba(255, 255, 255, 0.1);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
 }
 
-button {
-  background: #3498db;
+.form-control, .btn {
+  border-radius: 30px;
+}
+
+.btn {
+  background: linear-gradient(to right, #36d1dc, #5b86e5);
   color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
-button:hover {
-  background: #2980b9;
+.btn:hover {
+  background: linear-gradient(to right, #5b86e5, #36d1dc);
+  transform: scale(1.05);
 }
+
+select, textarea {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  outline: none;
+  transition: background 0.3s ease, border-color 0.3s ease;
+  width: 100%;
+}
+
+select:hover, textarea:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: #3498db;
+}
+
+select:focus, textarea:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+option {
+  background: #141e30;
+  color: #fff;
+  padding: 10px;
+}
+
+option:hover {
+  background: #243b55;
+}
+
 .loading-overlay {
   position: fixed;
   top: 0;
@@ -47,4 +84,84 @@ button:hover {
 .spinner-border {
   width: 3rem;
   height: 3rem;
+  border: 4px solid #3498db;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+      transform: rotate(360deg);
+  }
+}
+
+.audio-player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1d3557, #457b9d);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  max-width: 600px;
+  margin: 20px auto;
+  color: #fff;
+}
+
+.audio-player h5 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #f1faee;
+}
+
+.audio-controls {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
+.play-pause {
+  background: #e63946;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.play-pause:hover {
+  background: #d62828;
+  transform: scale(1.1);
+}
+
+.audio-progress-bar {
+  position: relative;
+  flex-grow: 1;
+  height: 8px;
+  background: #f1faee;
+  border-radius: 5px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.audio-progress-filled {
+  height: 100%;
+  width: 0%;
+  background: #e63946;
+  transition: width 0.2s ease;
+}
+
+.audio-time {
+  font-size: 14px;
+  font-weight: bold;
+  color: #f1faee;
 }
