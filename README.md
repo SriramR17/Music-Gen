@@ -57,7 +57,7 @@ This project is an AI-powered music generation web application built using the H
      **Option 2: Using Conda Environment**
    - Create a Conda environment:
      ```bash
-     conda create --name ai-music-gen python=3.7
+     conda create --name ai-music-gen python=3.10
      conda activate ai-music-gen
      ```
    - Install required packages:
