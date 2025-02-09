@@ -10,7 +10,7 @@ model = MusicgenForConditionalGeneration.from_pretrained("facebook/musicgen-smal
 
 @app.route('/')
 def index():
-    return render_template('index.html')  # HTML file in the 'templates' folder
+    return render_template('index.html')
 
 @app.route('/generate', methods=['POST'])
 def generate_music():
@@ -27,26 +27,18 @@ def generate_music():
         instruments = data.get('instruments', 'default instruments')
         prompt = f"Generate a {genre} in {emotion} emotion in track featuring {instruments}."
 
-
     token_mapping = {
-        5: 256,  # 5 seconds = 256 tokens
-        10: 512,  # 10 seconds = 512 tokens
-        15: 768,  # 15 seconds = 768 tokens
-        20: 1024  # 20 seconds = 1024 tokens
+        5: 256,
+        10: 512,
+        15: 768,
+        20: 1024
     }
     
-    # Select the correct number of tokens based on the duration
     max_tokens = token_mapping.get(duration, 256)
-
-    # Process the input and generate audio
     inputs = processor(text=[prompt], padding=True, return_tensors="pt")
     audio_values = model.generate(**inputs, max_length=max_tokens)
     
-    
-    # Save audio to a file
     audio_file = "output.wav"
-    
-
     sampling_rate = model.config.audio_encoder.sampling_rate
     scipy.io.wavfile.write(audio_file, rate=sampling_rate, data=audio_values[0, 0].numpy())
     

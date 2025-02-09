@@ -1,105 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Music Generator</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/static/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gothic Music Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
 </head>
-<body>
-  <div class="container mt-5 glossy-theme">
-    <h1 class="text-center">AI Music Generator</h1>
-    <p class="text-center">Create music by providing a text prompt or selecting predefined options.</p>
-
-    <form id="music-form" class="mt-4">
-      <div class="mb-3">
-
+<body class="bg-black min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-gothic text-green-500 text-center mb-8">AI Music Generator</h1>
         
-        <label for="mode" class="form-label">Choose Input Mode:</label>
-        <select id="mode" class="form-select">
-          <option value="text">Text Prompt</option>
-          <option value="options">Predefined Options</option>
-        </select>
-      </div>
+        <!-- Mode Selection Cards -->
+        <div class="grid md:grid-cols-2 gap-6 mb-8">
+            <!-- Text Mode Card -->
+            <div class="mode-card bg-gray-900 rounded-lg p-6 border-2 border-green-500 hover:border-green-400 cursor-pointer transition-all" data-mode="text">
+                <div class="flex items-center justify-center mb-4">
+                    <i class="fas fa-pen-fancy text-4xl text-green-500"></i>
+                </div>
+                <h2 class="text-2xl text-green-500 text-center">Text Prompt</h2>
+                <p class="text-gray-400 text-center mt-2">Create music using descriptive text</p>
+            </div>
+            
+            <!-- Options Mode Card -->
+            <div class="mode-card bg-gray-900 rounded-lg p-6 border-2 border-green-500 hover:border-green-400 cursor-pointer transition-all" data-mode="options">
+                <div class="flex items-center justify-center mb-4">
+                    <i class="fas fa-sliders text-4xl text-green-500"></i>
+                </div>
+                <h2 class="text-2xl text-green-500 text-center">Predefined Options</h2>
+                <p class="text-gray-400 text-center mt-2">Choose from preset configurations</p>
+            </div>
+        </div>
 
-      <label for="duration">Select Duration (seconds) :</label>
-        <select id="duration" name="duration" class="'form-select">
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="15">15</option>
-            <option value="20">20</option>
-        </select>
-        <br>
-        <br>
+        <form id="music-form" class="bg-gray-900 rounded-lg p-6 border-2 border-green-500">
+            <!-- Duration Selection -->
+            <div class="mb-6">
+                <label class="block text-green-500 mb-2 text-xl">
+                    <i class="fas fa-clock mr-2"></i>Duration
+                </label>
+                <select id="duration" class="w-full bg-black text-green-500 border-2 border-green-500 rounded-lg p-3">
+                    <option value="5">5 seconds</option>
+                    <option value="10">10 seconds</option>
+                    <option value="15">15 seconds</option>
+                    <option value="20">20 seconds</option>
+                </select>
+            </div>
 
-      <!-- Text Prompt Section -->
-      <div id="text-prompt-section" class="mb-3">
-        <label for="text-prompt" class="form-label">Enter Text Prompt:</label>
-        <textarea id="text-prompt" class="form-control" rows="4" placeholder="Describe the music you want to generate..."></textarea>
-      </div>
+            <!-- Text Prompt Section -->
+            <div id="text-prompt-section" class="mb-6 hidden">
+                <label class="block text-green-500 mb-2 text-xl">
+                    <i class="fas fa-quote-left mr-2"></i>Your Description
+                </label>
+                <textarea id="text-prompt" rows="4" 
+                    class="w-full bg-black text-green-500 border-2 border-green-500 rounded-lg p-3 resize-none"
+                    placeholder="Lo Fi track that feels like refelecting on old memories on a quiet night"></textarea>
+            </div>
 
-      <!-- Predefined Options Section -->
-      <!-- Predefined Options Section -->
-<div id="options-section" class="mb-3" style="display: none;">
-  <label for="genre" class="form-label">Select Genre:</label>
-  <select id="genre" class="form-select">
-    <option value="rap">Rap</option>
-    <option value="classical">Classical</option>
-    <option value="pop">Pop</option>
-    <option value="jazz">Jazz</option>
-    <option value="rock">Rock</option>
-    <option value="blues">Blues</option>
-    <option value="electronic">Electronic</option>
-    <option value="reggae">Reggae</option>
-    <option value="country">Country</option>
-    <option value="hip-hop">Hip-Hop</option>
-  </select>
-  <br>
-  <div class="mb-3" id="emotion-section" style="display: none;">
-  <label for="emotion" class="form-label">Select Emotion:</label>
-  <select id="emotion" class="form-select">
-    <!-- Options will be populated dynamically based on the genre -->
-  </select>
-</div>
-  <label for="instruments" class="form-label mt-3">Select Instruments:</label>
-  <select id="instruments" class="form-select">
-    <option value="piano">Piano</option>
-    <option value="drums">Drums</option>
-    <option value="guitar">Guitar</option>
-    <option value="violin">Violin</option>
-    <option value="bass">Bass</option>
-    <option value="saxophone">Saxophone</option>
-    <option value="trumpet">Trumpet</option>
-    <option value="flute">Flute</option>
-    <option value="synthesizer">Synthesizer</option>
-    <option value="harp">Harp</option>
-  </select>
-</div>
-
-
-
-
-      <button type="submit" class="btn btn-primary w-100">Generate Music</button>
-    </form>
-
-    <div class="audio-player mt-4">
-      <h5>Generated Music:</h5>
-      <audio id="audio-player" controls class="w-100"></audio>
-    </div>
-  </div>
-
- 
-
-  <div class="loading-overlay" id="loading-overlay">
-    <div class="spinner-border text-primary" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-    <p class="mt-3">Generating music, don't go awayy 😭😭😭😭...</p>
-  </div>
+            <!-- Options Section -->
+            <div id="options-section" class="mb-6 hidden">
+                <!-- Genre Selection -->
+                <!-- Genre Selection -->
+<div class="mt-8">
+  <label class="flex items-center gap-2 text-green-500 text-2xl mb-6">
+      <i class="fas fa-music"></i>
+      Select Genre
+  </label>
   
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+      <!-- Rap -->
+      <div class="genre-option cursor-pointer bg-gray-900/50 backdrop-blur border-2 border-green-500 rounded-xl p-4 text-center hover:bg-gray-800 transition-all duration-300 group" data-genre="rap">
+          <div class="flex flex-col items-center space-y-3">
+              <i class="fas fa-microphone text-green-500 text-3xl group-hover:scale-110 transition-transform"></i>
+              <span class="block text-green-500 font-medium">Rap</span>
+          </div>
+      </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/static/script.js"></script>
+      <!-- Classical -->
+      <div class="genre-option cursor-pointer bg-gray-900/50 backdrop-blur border-2 border-green-500 rounded-xl p-4 text-center hover:bg-gray-800 transition-all duration-300 group" data-genre="classical">
+          <div class="flex flex-col items-center space-y-3">
+              <i class="fas fa-violin text-green-500 text-3xl group-hover:scale-110 transition-transform"></i>
+              <span class="block text-green-500 font-medium">Classical</span>
+          </div>
+      </div>
+
+      <!-- Pop -->
+      <div class="genre-option cursor-pointer bg-gray-900/50 backdrop-blur border-2 border-green-500 rounded-xl p-4 text-center hover:bg-gray-800 transition-all duration-300 group" data-genre="pop">
+          <div class="flex flex-col items-center space-y-3">
+              <i class="fas fa-music text-green-500 text-3xl group-hover:scale-110 transition-transform"></i>
+              <span class="block text-green-500 font-medium">Pop</span>
+          </div>
+      </div>
+
+      <!-- Jazz -->
+      <div class="genre-option cursor-pointer bg-gray-900/50 backdrop-blur border-2 border-green-500 rounded-xl p-4 text-center hover:bg-gray-800 transition-all duration-300 group" data-genre="jazz">
+          <div class="flex flex-col items-center space-y-3">
+              <i class="fas fa-saxophone text-green-500 text-3xl group-hover:scale-110 transition-transform"></i>
+              <span class="block text-green-500 font-medium">Jazz</span>
+          </div>
+      </div>
+
+      <!-- Rock -->
+      <div class="genre-option cursor-pointer bg-gray-900/50 backdrop-blur border-2 border-green-500 rounded-xl p-4 text-center hover:bg-gray-800 transition-all duration-300 group" data-genre="rock">
+          <div class="flex flex-col items-center space-y-3">
+              <i class="fas fa-guitar text-green-500 text-3xl group-hover:scale-110 transition-transform"></i>
+              <span class="block text-green-500 font-medium">Rock</span>
+          </div>
+      </div>
+
+      <!-- Blues -->
+      <div class="genre-option cursor-pointer bg-gray-900/50 backdrop-blur border-2 border-green-500 rounded-xl p-4 text-center hover:bg-gray-800 transition-all duration-300 group" data-genre="blues">
+          <div class="flex flex-col items-center space-y-3">
+              <i class="fas fa-music text-green-500 text-3xl group-hover:scale-110 transition-transform"></i>
+              <span class="block text-green-500 font-medium">Blues</span>
+          </div>
+      </div>
+
+      <!-- Electronic -->
+      <div class="genre-option cursor-pointer bg-gray-900/50 backdrop-blur border-2 border-green-500 rounded-xl p-4 text-center hover:bg-gray-800 transition-all duration-300 group" data-genre="electronic">
+          <div class="flex flex-col items-center space-y-3">
+              <i class="fas fa-record-vinyl text-green-500 text-3xl group-hover:scale-110 transition-transform"></i>
+              <span class="block text-green-500 font-medium">Electronic</span>
+          </div>
+      </div>
+
+      <!-- Reggae -->
+      <div class="genre-option cursor-pointer bg-gray-900/50 backdrop-blur border-2 border-green-500 rounded-xl p-4 text-center hover:bg-gray-800 transition-all duration-300 group" data-genre="reggae">
+          <div class="flex flex-col items-center space-y-3">
+              <i class="fas fa-drum text-green-500 text-3xl group-hover:scale-110 transition-transform"></i>
+              <span class="block text-green-500 font-medium">Reggae</span>
+          </div>
+      </div>
+
+      <!-- Country -->
+      <div class="genre-option cursor-pointer bg-gray-900/50 backdrop-blur border-2 border-green-500 rounded-xl p-4 text-center hover:bg-gray-800 transition-all duration-300 group" data-genre="country">
+          <div class="flex flex-col items-center space-y-3">
+              <i class="fas fa-hat-cowboy text-green-500 text-3xl group-hover:scale-110 transition-transform"></i>
+              <span class="block text-green-500 font-medium">Country</span>
+          </div>
+      </div>
+
+      <!-- Hip-Hop -->
+      <div class="genre-option cursor-pointer bg-gray-900/50 backdrop-blur border-2 border-green-500 rounded-xl p-4 text-center hover:bg-gray-800 transition-all duration-300 group" data-genre="hip-hop">
+          <div class="flex flex-col items-center space-y-3">
+              <i class="fas fa-headphones text-green-500 text-3xl group-hover:scale-110 transition-transform"></i>
+              <span class="block text-green-500 font-medium">Hip-Hop</span>
+          </div>
+      </div>
+  </div>
+</div>
+
+                <!-- Instrument Selection -->
+                <div class="mb-4">
+                    <label class="block text-green-500 mb-2 text-xl">
+                        <i class="fas fa-guitar mr-2"></i>Instrument
+                    </label>
+                    <select id="instruments" class="w-full bg-black text-green-500 border-2 border-green-500 rounded-lg p-3">
+                        <option value="piano">Piano</option>
+                        <option value="guitar">Guitar</option>
+                        <option value="drums">Drums</option>
+                        <option value="violin">Violin</option>
+                        <option value="bass">Bass</option>
+                    </select>
+                </div>
+
+                <!-- Emotion Selection -->
+                <div id="emotion-section" class="mb-4 hidden">
+                    <label class="block text-green-500 mb-2 text-xl">
+                        <i class="fas fa-heart mr-2"></i>Emotion
+                    </label>
+                    <select id="emotion" class="w-full bg-black text-green-500 border-2 border-green-500 rounded-lg p-3">
+                        <!-- Populated dynamically -->
+                    </select>
+                </div>
+            </div>
+
+            <!-- Generate Button -->
+            <button type="submit" class="w-full bg-green-500 text-black font-bold py-3 px-6 rounded-lg hover:bg-green-400 transition-all">
+                <i class="fas fa-wand-magic-sparkles mr-2"></i>Generate Music
+            </button>
+        </form>
+
+        <!-- Audio Player -->
+        <div class="mt-8 bg-gray-900 rounded-lg p-6 border-2 border-green-500">
+            <h3 class="text-xl text-green-500 mb-4">
+                <i class="fas fa-headphones mr-2"></i>Generated Music
+            </h3>
+            <audio id="audio-player" controls class="w-full" style="filter: hue-rotate(90deg)"></audio>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="fixed inset-0 bg-black bg-opacity-75 hidden items-center justify-center">
+        <div class="text-center">
+            <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-green-500 mb-4"></div>
+            <p class="text-green-500 text-xl">Generating your masterpiece...</p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
