@@ -76,7 +76,7 @@ This project is an AI-powered music generation web application built using the H
 ## Screenshots
 
 ### Main Page:
-![Main Page](mainpage.png)
+![Main Page]([mainpage.png](https://github.com/SriramR17/Music-Gen/blob/3ae5cb3a00566513db52edb6518f30911a8fabf8/Screenshots/mainpage.png))
 
 ---
 
