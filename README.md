@@ -93,7 +93,6 @@ This project is an AI-powered music generation web application built using the H
 
 ## Future Enhancements
 
-- Add the ability to download generated music files.
 - Include more genres, emotions, and instrument options.
 - Enable saving user preferences for future sessions.
 - Optimize performance for faster music generation.
