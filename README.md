@@ -87,7 +87,7 @@ This project is an AI-powered music generation web application built using the H
 ## Screenshots
 
 ### Main Page:
-![Main Page](.Screenshots/mainpage.png))
+![Main Page](./Screenshots/mainpage.png)
 
 ---
 
